@@ -1,0 +1,23 @@
+def hier(nb1,nb2):
+    inputs=Input(shape=(1536,))
+    
+    first_layer=Dense(nb1,activation='sigmoid')(inputs)
+    
+    g1=Dense(1,activation='sigmoid')(first_layer)
+    
+    c1=Dense(nb2,activation='sigmoid')(first_layer)
+    
+    g0=Dense(1,activation='sigmoid')(c1)
+    
+    c2=Dense(nb2,activation='sigmoid')(c1)
+    
+    g2=Dense(1,activation='sigmoid')(c2)
+    
+    g3=Dense(1,activation='sigmoid')(c2)
+    
+    
+    loss_f='binary_crossentropy'
+    
+    model = Model(inputs=[inputs], outputs=[g0,g1,g2,g3])
+    model.compile(optimizer='Adam', loss= [loss_f,loss_f,loss_f,loss_f])
+    return model
